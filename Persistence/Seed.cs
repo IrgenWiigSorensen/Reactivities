@@ -37,8 +37,6 @@ namespace Persistence
                 }
             }
 
-
-
             if (context.Activities.Any()) return;
             
             var activities = new List<Activity>
