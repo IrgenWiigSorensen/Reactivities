@@ -12,20 +12,20 @@ interface Props {
 }
 
 export default observer(function ActivityDetailedChat({ activityId }: Props) {
-    // const { commentStore } = useStore();
+    const { commentStore } = useStore();
 
-    // useEffect(() => {
-    //     if (activityId) {
-    //         commentStore.createHubConnection(activityId);
-    //     }
-    //     return () => {
-    //         commentStore.clearComments();
-    //     }
-    // }, [commentStore, activityId]);
+    useEffect(() => {
+        if (activityId) {
+            commentStore.createHubConnection(activityId);
+        }
+        return () => {
+            commentStore.clearComments();
+        }
+    }, [commentStore, activityId]);
 
     return (
         <>
-            {/* <Segment
+            <Segment
                 textAlign='center'
                 attached='top'
                 inverted
@@ -53,7 +53,7 @@ export default observer(function ActivityDetailedChat({ activityId }: Props) {
                                             placeholder='Enter your comment (Enter to submit, SHIFT + Enter for new line)'
                                             rows={2}
                                             {...props.field}
-                                            onKeyPress={e => {
+                                            onKeyDown={e => {
                                                 if (e.key === 'Enter' && e.shiftKey) {
                                                     return;
                                                 }
@@ -83,8 +83,7 @@ export default observer(function ActivityDetailedChat({ activityId }: Props) {
                         </Comment>
                     ))}
                 </Comment.Group>
-            </Segment> */}
+            </Segment>
         </>
-
     )
 })
