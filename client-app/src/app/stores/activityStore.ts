@@ -88,18 +88,19 @@ export default class ActivityStore {
     }
 
     loadActivities = async () => {
-        this.setLoadingInitial(true)
+        this.loadingInitial = true;
         try {
-          const activities = await agent.Activities.list();
-          activities.forEach((activity) => {
-            this.setActivity(activity)
-          });
-          this.setLoadingInitial(false);
-        } catch(error) {
+            const result = await agent.Activities.list(this.axiosParams);
+            result.data.forEach(activity => {
+                this.setActivity(activity);
+            })
+            this.setPagination(result.pagination);
+            this.setLoadingInitial(false);
+        } catch (error) {
             console.log(error);
             this.setLoadingInitial(false);
         }
-      }
+    }
 
     setPagination = (pagination: Pagination) => {
         this.pagination = pagination;
@@ -167,7 +168,7 @@ export default class ActivityStore {
             await agent.Activities.update(activity);
             runInAction(() => {
                 if (activity.id) {
-                    const updatedActivity = { ...this.getActivity(activity.id), ...activity };
+                    let updatedActivity = { ...this.getActivity(activity.id), ...activity };
                     this.activityRegistry.set(activity.id, updatedActivity as Activity);
                     this.selectedActivity = updatedActivity as Activity;
                 }
