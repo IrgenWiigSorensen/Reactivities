@@ -21,8 +21,6 @@ export default observer(function ActivityDetails() {
 
     if (loadingInitial || !activity) return <LoadingComponent />
 
-    console.log(activity.isHost)
-
     return (
         <Grid>
             <Grid.Column width='10'>

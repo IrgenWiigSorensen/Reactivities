@@ -21,7 +21,6 @@ export default observer(function ActivityList() {
                   {activities.map(activity => (
                     <>
                     <ActivityListItem key={activity.id} activity={activity} />
-                    {`${console.log(activity.isHost)}`}
                     </>
                   ))}
 
